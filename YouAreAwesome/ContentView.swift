@@ -10,21 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @State private var messageString = ""
     @State private var imageName = ""
-    @State private var imageNumber = 0
-    @State private var messageNumber = 0
+    @State private var lastMessageNumber = -1
+    @State private var lastImageNumber = -1
+    
     
     
     var body: some View {
         
         VStack {
-            
-            Image(imageName)
-                .resizable()
-                .scaledToFit()
-                .clipShape(.rect(cornerRadius: 30))
-                .padding(30)
-            
-            Spacer()
             
             Text(messageString)
                 .font(.largeTitle)
@@ -36,10 +29,21 @@ struct ContentView: View {
                 .frame(height: 150)
                 .frame(maxWidth: .infinity)
                 .padding()
+
+            
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
+                .clipShape(.rect(cornerRadius: 30))
+                .padding(30)
             
             Spacer()
+
             
             Button("Motivate") {
+                var imageNumber: Int
+                var messageNumber: Int
+                
                 let messages = ["Dream BIG!",
                                 "Momentum Brings Clarity",
                                 "You Are Limitless",
@@ -50,11 +54,21 @@ struct ContentView: View {
                                 "Be Consistent"
                 ]
                 
-                messageNumber = Int.random(in: 0..<messages.count)
-                messageString = messages[messageNumber]
                 
-                imageNumber = Int.random(in: 0...15)
+                repeat {
+                    messageNumber = Int.random(in: 0..<messages.count)
+                } while lastMessageNumber == messageNumber
+                
+                messageString = messages[messageNumber]
+                lastMessageNumber = messageNumber
+                
+                
+                repeat {
+                    imageNumber = Int.random(in: 0...15)
+                } while lastImageNumber == imageNumber
+                
                 imageName = "image\(imageNumber)"
+                lastImageNumber = imageNumber
 
             }
             .font(.title2)
