@@ -50,13 +50,12 @@ struct ContentView: View {
                                 "Be Consistent"
                 ]
                 
+                messageNumber = Int.random(in: 0..<messages.count)
                 messageString = messages[messageNumber]
-                messageNumber += 1
-                messageNumber = messageNumber == messages.count ? 0 : messageNumber
                 
+                imageNumber = Int.random(in: 0...15)
                 imageName = "image\(imageNumber)"
-                imageNumber += 1
-                imageNumber = imageNumber > 15 ? 0 : imageNumber
+
             }
             .font(.title2)
             .fontWeight(.heavy)
