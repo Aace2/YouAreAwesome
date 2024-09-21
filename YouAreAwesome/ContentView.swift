@@ -46,7 +46,7 @@ struct ContentView: View {
                                 "Create The Future",
                                 "Develop A Growth Mindset",
                                 "Embrace The Work",
-                                "Be Disciplined",
+                                "Be Disciplined!",
                                 "Be Consistent"
                 ]
                 
