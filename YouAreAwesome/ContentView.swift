@@ -16,6 +16,8 @@ struct ContentView: View {
     @State private var lastSoundNumber = -1
     @State private var audioPlayer: AVAudioPlayer!
     @State private var funk = PlayMusic()
+    @State var randomNumber = NumberGenerator()
+    @State private var soundIsOn = true
     
     var body: some View {
         VStack {
@@ -39,33 +41,60 @@ struct ContentView: View {
             
             Spacer()
             
-            Button("Motivate") {
-                let messages = [
-                    "Dream BIG!",
-                    "Momentum Brings Clarity",
-                    "You Are Limitless",
-                    "Create The Future",
-                    "Develop A Growth Mindset",
-                    "Embrace The Work",
-                    "Be Disciplined!",
-                    "Be Consistent"
-                ]
+            HStack {
                 
-                lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBounds: messages.count)
-                messageString = messages[lastMessageNumber]
+                Text("Sound ON:")
+                Toggle("", isOn: $soundIsOn)
+                    .labelsHidden()
+                    .onChange(of: soundIsOn) {
+                        if audioPlayer != nil && audioPlayer.isPlaying {
+                            audioPlayer.stop()
+                        }
+                    }
                 
-                lastImageNumber = nonRepeatingRandom(lastNumber: lastImageNumber, upperBounds: 16)
-                imageName = "image\(lastImageNumber)"
+                Spacer()
                 
-                lastSoundNumber = nonRepeatingRandom(lastNumber: lastSoundNumber, upperBounds: 8)
-                playSound(soundName: "sound\(lastSoundNumber)")
-                //funk.playSound(soundName: "sound\(soundNumber)")
+                Button("Motivate") {
+                    let messages = [
+                        "Dream BIG!",
+                        "Momentum Brings Clarity",
+                        "You Are Limitless",
+                        "Create The Future",
+                        "Develop A Growth Mindset",
+                        "Embrace The Work",
+                        "Be Disciplined!",
+                        "Be Consistent"
+                    ]
+                    
+                    lastMessageNumber = randomNumber.nonRepeatingRandom(lastNumber: lastMessageNumber, upperBounds: messages.count)
+                    messageString = messages[lastMessageNumber]
+                    
+                    //                lastMessageNumber = nonRepeatingRandom(lastNumber: lastMessageNumber, upperBounds: messages.count)
+                    
+                    lastImageNumber = randomNumber.nonRepeatingRandom(lastNumber: lastImageNumber, upperBounds: 16)
+                    imageName = "image\(lastImageNumber)"
+                    
+                    //                lastImageNumber = nonRepeatingRandom(lastNumber: lastImageNumber, upperBounds: 16)
+                    
+                    lastSoundNumber = randomNumber.nonRepeatingRandom(lastNumber: lastSoundNumber, upperBounds: 8)
+                    
+                    if soundIsOn {
+                        if audioPlayer != nil && audioPlayer.isPlaying {
+                            audioPlayer.stop()
+                        }
+                        playSound(soundName: "sound\(lastSoundNumber)")
+                    }
+                    //funk.playSound(soundName: "sound\(soundNumber)")
+                    
+                    //                lastSoundNumber = nonRepeatingRandom(lastNumber: lastSoundNumber, upperBounds: 8)
+                }
+                .font(.title2)
+                .fontWeight(.heavy)
+                .buttonStyle(.borderedProminent)
+                .padding()
             }
-            .font(.title2)
-            .fontWeight(.heavy)
-            .buttonStyle(.borderedProminent)
-            .padding()
         }
+        .padding()
     }
     
     func playSound(soundName: String) {
@@ -81,13 +110,13 @@ struct ContentView: View {
         }
     }
     
-    func nonRepeatingRandom(lastNumber: Int, upperBounds: Int) -> Int {
-        var number: Int
-        repeat {
-            number = Int.random(in: 0..<upperBounds)
-        } while number == lastNumber
-        return number
-    }
+//    func nonRepeatingRandom(lastNumber: Int, upperBounds: Int) -> Int {
+//        var number: Int
+//        repeat {
+//            number = Int.random(in: 0..<upperBounds)
+//        } while number == lastNumber
+//        return number
+//    }
 }
 
 
