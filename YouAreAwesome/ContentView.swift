@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var imageName = ""
     @State private var lastMessageNumber = -1
     @State private var lastImageNumber = -1
-    @State private var lastSoundNumber = -1
+    @State private var lastSoundNumber = -2
     @State private var audioPlayer: AVAudioPlayer!
     @State private var funk = PlayMusic()
     @State var randomNumber = NumberGenerator()
