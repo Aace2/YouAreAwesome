@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var imageName = ""
     @State private var lastMessageNumber = -1
     @State private var lastImageNumber = -1
-    @State private var lastSoundNumber = -2
+    @State private var lastSoundNumber = -1
     @State private var audioPlayer: AVAudioPlayer!
     @State private var funk = PlayMusic()
     @State var randomNumber = NumberGenerator()
@@ -32,12 +32,15 @@ struct ContentView: View {
                 .frame(height: 150)
                 .frame(maxWidth: .infinity)
                 .padding()
+//                .animation(.default, value: messageString)
+                .animation(.easeIn(duration: 0.15), value: messageString)
             
             Image(imageName)
                 .resizable()
                 .scaledToFit()
                 .clipShape(.rect(cornerRadius: 30))
                 .padding(30)
+                .animation(.default, value: messageString)
             
             Spacer()
             
@@ -51,10 +54,11 @@ struct ContentView: View {
                             audioPlayer.stop()
                         }
                     }
+                    
                 
                 Spacer()
                 
-                Button("Motivate") {
+                Button("Level UP") {
                     let messages = [
                         "Dream BIG!",
                         "Momentum Brings Clarity",
@@ -93,6 +97,7 @@ struct ContentView: View {
                 .buttonStyle(.borderedProminent)
                 .padding()
             }
+            .tint(.accentColor)
         }
         .padding()
     }
